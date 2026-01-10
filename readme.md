@@ -5,7 +5,7 @@
 <h1 align="center">TinyKache</h1>
 
 <p align="center">
-  🐿️ Um sistema de cache simples, leve e eficiente.
+  🐿️ Um sistema de cache simples, e leve.
 </p>
 
 ---

@@ -7,27 +7,26 @@
 #include <string.h>
 
 #define DEFAULT_CAPACITY 999983
-#define BIG_PRIME_NUMBER 999983
 
 CacheMap *hash_map(){
     CacheMap *map = malloc(sizeof(CacheMap));
     if (!map) return NULL;    
     map->capacity = DEFAULT_CAPACITY;
     map->length = 0;
-    map->items = calloc(map->capacity, sizeof(CacheItem *));
+    map->items = calloc(map->capacity, sizeof(CacheItem));
     return map;
 }
 
 int calculate_hash(char *key){
     unsigned long i = 0;
-    for(int j = 0; j < DEFAULT_ELEMENT_SIZE; j ++){
+    for(size_t j = 0; j < strlen(key); j ++){
         char at = key[j];
         if(at == '\0'){
             break;
         }
         i = i * 31 + (unsigned char)at;
     }
-    return i % BIG_PRIME_NUMBER;
+    return i % DEFAULT_CAPACITY;
 }
 
 char* put_item(CacheMap *map, CacheItem *item){
