@@ -5,8 +5,10 @@
 
 int main(void){
     CacheItem e1 = { NULL, "Paulo Higor", 3600 };
+    CacheItem e = { NULL, "paulohtfreire@gmail.com", 300};
     CacheMap *map = hash_map();
     char *key = put_item(map, &e1);
+    put_item(map, &e);
     if(key == NULL){
         printf("Cannot insert value %s on cache\n", e1.value);
         return 1;
@@ -15,8 +17,17 @@ int main(void){
     if(e2 ==  NULL){
         printf("Cannot find element with key %s on cache\n", key);
         return 1;
+    
     }
+    printf("Elements: %d\n", map->length);
     printf("value: %s. TTL: %d. Inserted with key: %s\n",  e1.value, e1.ttl, e1.key);
     printf("Found entry -> key: %s -> value: %s. TTL: %d\n", e2->key, e2->value, e2->ttl);
+
+    delete_item(map, key);
+    if(!get_item(map, key)){
+        printf("Item with %s key was successfully deleted!\n", key);
+    }
+    printf("Elements: %d\n", map->length);
+
     return 0;
 }

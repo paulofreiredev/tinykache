@@ -3,17 +3,17 @@
 #include <uuid/uuid.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 #include <string.h>
 
 #define DEFAULT_CAPACITY 999983
 
 CacheMap *hash_map(){
     CacheMap *map = malloc(sizeof(CacheMap));
-    if (!map) return NULL;    
+    if (!map) { exit(OUT_OF_MEMORY_ERROR_CODE);   } 
     map->capacity = DEFAULT_CAPACITY;
     map->length = 0;
     map->items = calloc(map->capacity, sizeof(CacheItem));
+    if(!(map->items)) { exit(OUT_OF_MEMORY_ERROR_CODE); }
     return map;
 }
 
@@ -38,6 +38,7 @@ char* put_item(CacheMap *map, CacheItem *item){
     if (!item->key) return NULL;
     int hash = calculate_hash(item->key);
     map->items[hash] = item;
+    map->length++;
     return item->key;
 }
 
@@ -45,4 +46,10 @@ CacheItem *get_item(CacheMap *map, char *key){
     int hash = calculate_hash(key);
     CacheItem *e = map->items[hash];
     return e;
+}
+
+void delete_item(CacheMap *map, char *key){
+    int hash = calculate_hash(key);
+    map->items[hash] = NULL;
+    map->length--;
 }
