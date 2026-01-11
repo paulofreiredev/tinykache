@@ -3,8 +3,6 @@
 #include "utils/hash_map.h"
 #include "model/types.h"
 
-#define DEFAULT_POOL_SIZE 1000
-
 int main(void){
     CacheItem e1 = { NULL, "Paulo Higor", 3600 };
     CacheMap *map = hash_map();
